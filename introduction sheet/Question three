@@ -1,0 +1,45 @@
+
+#include<iostream>
+#include <string>
+using namespace std;
+struct product{
+string name;
+int number;
+float price;
+};
+void read(product *s,int size)
+{
+	for(int i=0;i<size;i++)
+	{
+		//s[i]=new product();
+		cout<<"Enter product name"<<endl;
+		cin>>s[i].name;
+		cout<<"Enter product number"<<endl;
+		cin>>s[i].number;
+		cout<<"Enter product price"<<endl;
+		cin>>s[i].price;
+	}
+}
+void display(product *s,int size)
+	{
+		for(int i=0;i<size;i++)
+		{
+			cout<<"product name is "<<s[i].name<<endl;
+			cout<<"product number is "<<s[i].number<<endl;
+			cout<<"product price is "<<s[i].price<<endl;
+
+			cout<<"==========================================\n";
+		}
+};
+
+int main()
+{
+	int n;
+	cin>>n;
+	product *Pro = new product[n];
+	
+	read(Pro,n);
+	display(Pro,n);
+	system("pause");
+	return 0;
+}
