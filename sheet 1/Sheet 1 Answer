@@ -1,0 +1,234 @@
+
+
+#include<iostream>
+using namespace std;
+
+typedef int elementtype;
+typedef int position;
+
+class list
+{
+private:
+
+	elementtype* elements;
+	position last;
+	int capacity;
+
+public:
+
+	list()
+	{
+		elements = new elementtype[100];
+		last = -1;
+		capacity = 100;
+	}
+	list(int n)
+	{
+		elements = new elementtype[n];
+		last = -1;
+		capacity = n;
+	}
+	position first()
+	{
+		return 0;
+	}
+	position end()
+	{
+		return last + 1;
+	}
+	void makenull()
+	{
+		last = -1;
+	}
+	position next(position p)
+	{
+		if (p<0 || p>last)
+		{
+			cout << "out of range in next function\n";
+			return -1;
+		}
+		return p + 1;
+	}
+	position previous(position p)
+	{
+		if (p <= 0 || p > last + 1)
+		{
+			cout << "out of range in previous function\n";
+			return -1;
+		}
+		return p - 1;
+	}
+	void Delete(position p)
+	{
+		if (p < 0 || p >= last + 1)
+		{
+			cout << "out of range in delete function\n";
+		}
+		else
+		{
+			for (position i = p; i < last; i++)
+			{
+				elements[i] = elements[i + 1];
+			}
+			last--;
+		}
+	}
+
+	elementtype retrieve(position p)
+	{
+		if (p < 0 || p >= last + 1)
+		{
+			cout << "out of range in retrieve function\n";
+			return -1;
+		}
+		return elements[p];
+	}
+
+	position locate(elementtype x)
+	{
+		for (position i = 0; i < last + 1; i++)
+		{
+			if (elements[i] == x)
+				return i;
+		}
+
+		cout << "element not exist\n";
+		return end();
+	}
+
+	void insert(elementtype x, position p)
+	{
+		if (last == capacity - 1)
+			cout << "list is full\n";
+		else if (p<0 || p>last + 1)
+		{
+			cout << "out of range in insert function\n";
+		}
+		else
+		{
+			for (position i = last; i >= p; i--)
+			{
+				elements[i + 1] = elements[i];
+			}
+			elements[p] = x;
+			last++;
+		}
+	}
+
+	void printlist()
+	{
+		for (position i = 0; i < last + 1; i++)
+		{
+			cout << "elements[" << i << "] = " << elements[i] << endl;
+		}
+	}
+
+};
+
+void Purge(list &l)
+{
+    for (position i = l.first(); i < l.end(); i = l.next(i))
+    {
+        for (position j = l.next(i); j < l.end(); j = l.next(j))
+        {
+            if (l.retrieve(i) == l.retrieve(j))
+            {
+                l.Delete(j);
+                j = l.previous(j);
+            }
+        }
+    }
+}
+
+void reverse(list &l)
+{
+	position j = l.previous(l.end());
+	position i = l.first();
+	elementtype temp;
+
+
+	while (j > i)
+	{
+
+		temp = l.retrieve(j);
+		l.Delete(j);
+		l.insert(l.retrieve(i), j);
+		l.Delete(i);
+		l.insert(temp, i);
+		i = l.next(i);
+		j = l.previous(j);
+	}
+
+}
+
+void  insertXafterY(list &l, elementtype x, elementtype y)
+{
+	if (l.locate(y) == l.end())
+	{
+		l.insert(x, l.end());
+	}
+	else
+	{
+		l.insert(x, l.next(l.locate(y)));
+	}
+}
+
+list concatenate(list l, list a)
+{
+	list m(l.end() + a.end());
+	for (position i = l.first(); i < l.end(); i = l.next(i))
+	{
+		m.insert(l.retrieve(i), m.end());
+	}
+
+	for (position i = a.first(); i < a.end(); i = a.next(i))
+	{
+		m.insert(a.retrieve(i), m.end());
+	}
+	return m;
+}
+
+int main()
+{
+    list l(10);
+	list a(6);
+
+    l.insert(5, l.end());
+    l.insert(5, l.first());
+    l.insert(4, l.end());
+    l.insert(3, l.end());
+    l.insert(3, l.first());
+    l.insert(2, l.end());
+
+	a.insert(5, a.end());
+	a.insert(4, a.end());
+	a.insert(2, a.end());
+	a.insert(6, a.end());
+
+
+	cout << "List:" << endl;
+    l.printlist();
+    cout << endl;
+
+	cout << "List after purge:" << endl;
+    Purge(l);
+    l.printlist();
+	cout << endl;
+
+	cout << "List after reverse:" << endl;
+	reverse(l);
+	l.printlist();
+	cout << endl;
+
+	cout << "List after insert x:" << endl;
+	insertXafterY(l, 6, 3);
+	l.printlist();
+	cout << endl;
+
+	cout << "concatenate l and a:" << endl;
+	list m = concatenate(l, a);
+	m.printlist();
+	cout << endl;
+
+    return 0;
+}
