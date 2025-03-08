@@ -22,9 +22,9 @@
 	       - [ ] point 5 [function **split**].
 	       - [ ] point 6 [function **sum**].
 	   - [ ] Question three [function **RemoveOccurences1**].
-           - [ ] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
-           - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange]
-           - [ ] Question 6
-
+     - [ ] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
+     - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange]
+     - [ ] Question 6
+         
 
 ---
