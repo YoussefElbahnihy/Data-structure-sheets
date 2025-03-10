@@ -1,0 +1,268 @@
+//Solved by Moaz Sabry
+
+#include <iostream>
+#include <string>
+using namespace std;
+typedef int position;
+struct student {
+        string name;
+        int totalscore;
+        student(): name("") , totalscore(0){}; 
+        student(string n , int x): name(n) , totalscore(x){};
+        bool operator ==(student x) //change 
+        {
+            if((x.name == name) && (x.totalscore == totalscore)) return true;
+            else return false;
+        }
+
+		void display()
+		{
+			cout<<"Student Name: "<<name<<",  Student Score: "<<totalscore<<endl;
+		}
+};
+//Add typedef elementtype
+typedef student etype;
+class list {
+		etype *elements;
+		int capacity;
+		position last;
+    public:
+    list( )
+        { 
+            elements =new etype[100];
+            capacity=100;
+            last=-1;
+        }
+    list(int n)
+        {
+            elements=new etype[n];
+            capacity=n;
+            last=-1;
+        }
+    position end()
+        {
+			return last+1;
+        }
+    position first()
+        {
+			return 0;
+		}
+    position next(position p)
+        {
+            if (p<0 || p>last)
+            {
+                cout << "out of range in next function\n";
+                return -1;
+            }
+            return p + 1;
+        }
+    position previous(position p)
+        {
+            if (p <= 0 || p > last + 1)
+            {
+                cout << "out of range in previous function\n";
+                return -1;
+            }
+            return p - 1;
+        }
+    etype retrieve(position p)
+        {
+            if (p < 0 || p >= last + 1)
+            {
+                cout << "out of range in retrieve function\n";
+                return student();
+            }
+            return elements[p];
+        }
+    position locate(etype x)
+	    {
+		    for (position i = 0; i < last + 1; i++)
+		    {
+			    if (x == elements[i])
+				    return i;
+		    }
+		    cout << "element not exist\n";
+		    return end();
+	    }
+
+	position locateinrange(etype x,  position s, position e)
+        {
+			//change
+            if (s >= 0 && e < end() && s <= e) 
+            {
+                for (position i = s; i <= e; i++)
+                {
+                    if (x == elements[i])
+                        return i;
+                }
+            }
+            cout << "element not exist in range\n";
+            return end();
+        }   
+    void Delete(position p)
+        {
+            if (p < 0 || p >= last + 1)
+            {
+                cout << "out of range in delete function\n";
+            }
+            else
+            {
+                for (position i = p; i < last; i++)
+                {
+                    elements[i] = elements[i + 1];
+                }
+                last--;
+            }
+        }
+    void insert(etype s, position pos)
+		{
+			if (last == capacity-1) 
+				cout << "list is full"; 
+			else if (pos > last+1 || pos < 0) 
+				cout << pos<<":pos is out of range"<<last; 
+			else
+			{
+				for (int i = last; i >= pos; i--)
+				{
+					elements[i+1] = elements[i];
+					//students[i+1].name = students[i].name;
+					//students[i+1].totalscore = students[i].totalscore;
+				}
+				elements[pos] = s;
+				last++;
+				//students[pos].name = s.name ;
+				//students[pos].totalscore = s.totalscore;
+            }
+        }
+    void printlist()
+		{
+			for (int i = 0; i <= last; i++)
+			{
+				//cout<<students[i].name<<" "<<students[i].totalscore<<endl;
+				cout<<"element["<<i<<"]: ";
+				elements[i].display();
+			}
+			cout<<endl;
+		}
+};
+    void Purge(list &l)
+        {
+            for (position i = l.first(); i < l.end(); i = l.next(i))
+            {
+                for (position j = l.next(i); j < l.end(); j = l.next(j))
+                {
+                    if (l.retrieve(i) == l.retrieve(j))
+                    {
+                        l.Delete(j);
+                        j = l.previous(j);
+                    }
+                }
+            }
+        }
+    void reverse(list &l)
+        {
+            position j = l.previous(l.end());
+            position i = l.first();
+            student temp;
+            while (j > i)
+            {
+                temp = l.retrieve(j);
+                l.Delete(j);
+                l.insert(l.retrieve(i), j);
+                l.Delete(i);
+                l.insert(temp, i);
+                i = l.next(i);
+                j = l.previous(j);
+            }
+        }
+    void  insertXafterY(list &l, student x, student y)
+        {
+            if (l.locate(y) == l.end())
+            {
+                l.insert(x, l.end());
+            }
+            else
+            {
+                l.insert(x, l.next(l.locate(y)));
+            }
+        }
+    list concatenate(list l, list a)
+        {
+            list m(l.end() + a.end());
+            for (position i = l.first(); i < l.end(); i = l.next(i))
+            {
+                m.insert(l.retrieve(i), m.end());
+            }
+        
+            for (position i = a.first(); i < a.end(); i = a.next(i))
+            {
+                m.insert(a.retrieve(i), m.end());
+            }
+            return m;
+        }
+    void split(list& l, list &pass, list &fall) 
+        {
+			//change
+            for (position i = l.first(); i < l.end(); i = l.next(i)) {
+                if (l.retrieve(i).totalscore >= 250)
+                    pass.insert(l.retrieve(i), pass.end());
+                else
+                    fall.insert(l.retrieve(i), fall.end());
+            }
+            //l = concatenate(a, b);
+        }
+         
+int main (){
+    list l(10),a(10);
+    student s("Ahmed" , 500) , d("Moaz" , 300) , w("Mona" , 100) , c("Marwan" , 400),k("Marwa",200);
+	l.insert(s, l.end());
+    l.insert(d, l.first());
+    l.insert(w, l.end());
+    l.insert(c, l.end());
+    l.insert(k, l.first());
+    l.insert(d, l.end());
+
+	a.insert(d, a.end());
+	a.insert(c, a.end());
+	a.insert(k, a.end());
+
+	cout << "List:" << endl;
+    l.printlist();
+    cout << endl;
+
+	cout << "List after purge:" << endl;
+    Purge(l);
+    l.printlist();
+	cout << endl;
+
+	cout << "List after reverse:" << endl;
+	reverse(l);
+	l.printlist();
+	cout << endl;
+
+    cout << "List after insert x:" << endl;
+	insertXafterY(l , w , d);
+	l.printlist();
+	cout << endl;
+
+
+    cout << "concatenate l and a:" << endl;
+	list m = concatenate(l, a);
+	m.printlist();
+	cout << endl;
+
+    cout << "split l:" << endl;
+	list p(10),f(10);
+	split(l,p,f);
+	cout<<"pass list:"<<endl;
+	p.printlist();
+	cout<<"fall list:"<<endl;
+	f.printlist();
+	cout << endl;
+
+    cout<<l.locateinrange(w , 0 , 2)<<endl;
+    cout<<l.locateinrange(d , 0 , 3)<<endl;
+
+	system("pause");
+	return 0;
+}
