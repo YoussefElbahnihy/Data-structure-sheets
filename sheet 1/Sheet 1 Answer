@@ -95,6 +95,19 @@ public:
 		cout << "element not exist\n";
 		return end();
 	}
+	
+	position locateInRange(elementtype x, position start, position End) {
+		if (start<0 || End>last || start > End) {
+			cout << "out of range" << endl;
+			return -1;
+		}
+		for (position i = start; i <=End; i++) {
+			if (x == elements[i]) {
+				return i;
+			}
+		}
+		return end();
+	}
 
 	void insert(elementtype x, position p)
 	{
@@ -204,7 +217,8 @@ int main()
 	a.insert(4, a.end());
 	a.insert(2, a.end());
 	a.insert(6, a.end());
-
+	
+	
 
 	cout << "List:" << endl;
     l.printlist();
@@ -229,6 +243,9 @@ int main()
 	list m = concatenate(l, a);
 	m.printlist();
 	cout << endl;
+	
+	cout<<"Locate 4 in Range 1 to last: ";
+	cout<<l.locateInRange(4,l.next(l.first()),l.previous(l.end()))<<endl;
 
     return 0;
 }
