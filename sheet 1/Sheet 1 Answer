@@ -200,7 +200,28 @@ list concatenate(list l, list a)
 	}
 	return m;
 }
-
+void split(list l,list *evenNum, list* oddNum) {
+		for(position i = l.first() ; i < l.end(); i = l.next(i)) {
+			if (l.retrieve(i) % 2) oddNum->insert(l.retrieve(i), oddNum->end());
+			else evenNum->insert(l.retrieve(i), evenNum->end());
+		}
+	}
+//another way for split
+void Split(list& l, list& O, list& E) {
+	for (int i = l.first(); i < l.end(); i = l.next(i)) {
+		if (l.retrieve(i) % 2 == 0) {
+			E.insert(l.retrieve(i), E.end());
+		}
+		else
+			O.insert(l.retrieve(i), O.end());
+	}
+}
+int sum(list l) {
+	int total = 0;
+	for(position i = l.first(); i < l.end();i = l.next(i))
+		total += l.retrieve(i);
+	return total;
+}
 int main()
 {
     list l(10);
@@ -224,6 +245,9 @@ int main()
     l.printlist();
     cout << endl;
 
+	cout << "Summation: ";
+	cout << sum(l) << endl;
+
 	cout << "List after purge:" << endl;
     Purge(l);
     l.printlist();
@@ -243,7 +267,16 @@ int main()
 	list m = concatenate(l, a);
 	m.printlist();
 	cout << endl;
-	
+
+	list even(10);
+	list odd(10) ;
+	split(l,&even, &odd);
+	cout << "Even Numbers : " << endl;
+	even.printlist();
+	cout << "Odd Numbers : " << endl;
+	odd.printlist();
+
+
 	cout<<"Locate 4 in Range 1 to last: ";
 	cout<<l.locateInRange(4,l.next(l.first()),l.previous(l.end()))<<endl;
 
