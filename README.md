@@ -23,8 +23,8 @@
 	       - [ ] point 6 [function **sum**].
 	   - [ ] Question three [function **RemoveOccurences1**].
      - [x] [Solved by\ **Sohaila Alnashar**] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
-     - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange]
-     - [x] [Solved by\ **Moaz Sabry**] Question 6
+     - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange].
+     - [x] [Solved by\ **Moaz Sabry**] [Question 6](https://github.com/YoussefElbahnihy/Data-structure-sheets/blob/eedf3b1f4f1aea05650c1ed9966084f28c2dc80c/sheet%201/Question%206).
          
 
 ---
