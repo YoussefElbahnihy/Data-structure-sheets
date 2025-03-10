@@ -15,16 +15,16 @@
    - **[Sheet One Answer](https://github.com/YoussefElbahnihy/Data-structure-sheets/blob/884a67ec06ea2be51cfaf57bc51f0f917dd02dcb/sheet%201/Sheet%201%20Answer):**
 	   - [x] Question one.
 	   - [ ] Question two.
-	       - [x] point 1 [function **PURGE**].
-	       - [x] Point 2 [function **Reverse**].
-	       - [x] point 3 [function **insertXafterY**].
-	       - [x] point 4 [function **concatenate**].
+	       - [x] [Solved by\ **Youssef Ahmed**] point 1 [function **PURGE**].
+	       - [x] [Solved by\ **Youssef Ahmed**] Point 2 [function **Reverse**].
+	       - [x] [Solved by\ **Youssef Ahmed**] point 3 [function **insertXafterY**].
+	       - [x] [Solved by\ **Youssef Ahmed**] point 4 [function **concatenate**].
 	       - [ ] point 5 [function **split**].
 	       - [ ] point 6 [function **sum**].
 	   - [ ] Question three [function **RemoveOccurences1**].
-     - [ ] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
+     - [x] [Solved by\ **Sohaila Alnashar**] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
      - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange]
-     - [ ] Question 6
+     - [x] [Solved by\ **Moaz Sabry**] Question 6
          
 
 ---
