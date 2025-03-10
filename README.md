@@ -19,8 +19,8 @@
 	       - [x] [Solved by\ **Youssef Ahmed**] Point 2 [function **Reverse**].
 	       - [x] [Solved by\ **Youssef Ahmed**] point 3 [function **insertXafterY**].
 	       - [x] [Solved by\ **Youssef Ahmed**] point 4 [function **concatenate**].
-	       - [ ] point 5 [function **split**].
-	       - [ ] point 6 [function **sum**].
+	       - [ ] [Solved by\ **Ahmed Hashem**]point 5 [function **split**].
+	       - [ ] [Solved by\ **Ahmed Hashem**]point 6 [function **sum**].
 	   - [ ] Question three [function **RemoveOccurences1**].
      - [x] [Solved by\ **Sohaila Alnashar**] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
      - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange].
