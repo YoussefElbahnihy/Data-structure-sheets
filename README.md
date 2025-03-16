@@ -24,7 +24,7 @@
 	   - [ ] Question three [function **RemoveOccurences1**].
      - [x] [Solved by\ **Sohaila Alnashar**] Question 4 [Modify the function **LOCATE(x, L)** to **LOCATEInRange(x, L, Start, End)**].
      - [ ] Question 5 [function **RemoveOccurences2** using LocateInRange].
-     - [x] [Solved by\ **Moaz Sabry**] [Question 6](https://github.com/YoussefElbahnihy/Data-structure-sheets/blob/eedf3b1f4f1aea05650c1ed9966084f28c2dc80c/sheet%201/Question%206).
+     - [x] [Solved by\ **Moaz Sabry**] [Question 6](https://github.com/YoussefElbahnihy/Data-structure-sheets/blob/0c63a82fd3342fb48b4d7117f5d67fc64e8ddc72/sheet%201/Question%206).
          
 
 ---
