@@ -1,0 +1,300 @@
+#include<iostream>
+
+using namespace std;
+typedef int elementtype;
+
+struct Node {
+	elementtype element;
+	Node* Next;
+};
+
+typedef Node* position;
+class list
+{
+	position head;
+	position tail;
+	int count;
+public:
+	list()
+	{
+		makeNull();
+	}
+	void makeNull()
+	{
+		head = new Node();
+		head->Next = NULL;
+		tail = head;
+		count = 0;
+	}
+	position end()
+	{
+		return tail;
+	}
+	position first()
+	{
+		//if(head->Next == NULL) return NULL; --> instead this make tail = head in makeNull function
+		return head;
+	}
+	position next(position pos)
+	{
+		//if(pos == tail)
+			//return NULL;
+		//As a default tail->Next is NULL
+		return pos->Next;
+	}
+	position previous(position pos)
+	{
+		if (pos == head)
+			return NULL;
+
+		position p = head;
+		while (p->Next != pos && p != NULL)
+		{
+			p = p->Next;
+		}
+		return p;
+	}
+
+	position locate(elementtype x)
+	{
+		position p = head;
+
+		while (p->Next != NULL)
+		{
+			if (p->Next->element == x)
+				return p;
+			p = p->Next;
+		}
+		return end();
+	}
+	elementtype retrieve(position p)
+	{
+		//must be p == NULL
+		if (p == NULL) return -1;
+		return p->Next->element;
+	}
+
+	void Delete(position p)
+	{
+		if (p == end() || p == NULL)
+		{
+			cout << "No Element to be deleted\n";
+			return;
+		}
+		if (p->Next == tail)
+			tail = p;
+		position temp = p->Next;
+		p->Next = p->Next->Next;
+		temp->Next = NULL;
+		delete temp;
+		count--;
+	}
+
+	void insert(elementtype x, position p)
+	{
+		if (p == NULL) p = end();
+		position newNode = new Node();
+		newNode->element = x;
+		newNode->Next = p->Next;
+		p->Next = newNode;
+
+		if (newNode->Next == NULL)
+			tail = newNode;
+		count++;
+	}
+
+	position locateinrange(elementtype x, position Spos, position endPos)
+	{
+
+		position p = Spos;
+		while (p->Next != endPos && p->Next != NULL) {
+
+			if (p->Next->element == x)
+				return p;
+
+			p = p->Next;
+
+		}
+		return end();
+
+	}
+
+	void printlist()
+	{
+		position q = head->Next;
+		while (q != NULL)
+		{
+			cout << q->element << " ";
+			q = q->Next;
+		}
+		cout << endl;
+	}
+};
+void Purge(list& l)
+{
+	for (position i = l.first(); i != l.end(); i = l.next(i))
+	{
+		for (position j = l.next(i); j != l.end(); j = l.next(j))
+		{
+			if (l.retrieve(i) == l.retrieve(j))
+			{
+				l.Delete(j);
+				j = l.previous(j);
+			}
+		}
+	}
+}
+
+
+void reverse(list& l)
+{
+	position pos = l.end();
+	position i = l.first();
+
+
+	while (i->Next != pos)
+	{
+		l.insert(l.retrieve(i), pos);
+		l.Delete(i);
+		i = l.first();
+	}
+
+}
+void  insertXafterY(list& l, elementtype x, elementtype y)
+{
+	if (l.locate(y) == l.end())
+	{
+		l.insert(x, l.end());
+	}
+	else
+	{
+		l.insert(x, l.next(l.locate(y)));
+	}
+}
+
+list concatenate(list l, list a)
+{
+	list m;
+	for (position i = l.first(); i != l.end(); i = l.next(i))
+	{
+		m.insert(l.retrieve(i), m.end());
+	}
+
+	for (position i = a.first(); i != a.end(); i = a.next(i))
+	{
+		m.insert(a.retrieve(i), m.end());
+	}
+	return m;
+}
+
+void split(list l, list& even, list& odd)
+{
+	for (position i = l.first(); i != l.end(); i = l.next(i))
+	{
+		if (l.retrieve(i) % 2 == 0)
+		{
+			even.insert(l.retrieve(i), even.end());
+		}
+		else
+		{
+			odd.insert(l.retrieve(i), odd.end());
+		}
+	}
+}
+
+elementtype listsum(list l)
+{
+	elementtype sum = 0;
+	for (position i = l.first(); i != l.end(); i = l.next(i))
+	{
+		sum += l.retrieve(i);
+	}
+	return sum;
+}
+
+void removeoccurences1(list& l, elementtype x)
+{
+	for (position i = l.first(); i != l.end();)
+	{
+		if (l.retrieve(i) == x)
+		{
+			l.Delete(i);
+		}
+		else
+			i = l.next(i);
+	}
+}
+
+
+void removeoccurences2(list& l, elementtype x)
+{
+	position find = l.locateinrange(x, l.first(), l.end());
+	
+	while (find != l.end())
+	{
+		l.Delete(find);
+		find = l.locateinrange(x, l.first(), l.end());
+	}
+	
+}
+
+
+int main()
+{
+	list l;
+	list a;
+
+	l.insert(5, l.end());
+	l.insert(5, l.first());
+	l.insert(4, l.end());
+	l.insert(3, l.end());
+	l.insert(3, l.first());
+	l.insert(2, l.end());
+
+	a.insert(5, a.end());
+	a.insert(4, a.end());
+	a.insert(2, a.end());
+	a.insert(6, a.end());
+
+
+	cout << "List:" << endl;
+	l.printlist();
+
+	cout << "\nList after purge:" << endl;
+	Purge(l);
+	l.printlist();
+
+	cout << "\nList after reverse:" << endl;
+	reverse(l);
+	l.printlist();
+
+	cout << "\nList after insert x:" << endl;
+	insertXafterY(l, 6, 3);
+	l.printlist();
+
+	cout << "\nconcatenate l and a:" << endl;
+	list m = concatenate(l, a);
+	m.printlist();
+
+	cout << "\nList after split is:" << endl;
+	list even, odd;
+	split(l, even, odd);
+	cout << "even list:" << endl;
+	even.printlist();
+	cout << "\nodd list:" << endl;
+	odd.printlist();
+
+	cout << "\nSummation of the list is = " << listsum(l) << endl;
+
+	cout << "\nList after delete all 4 elements is:" << endl;
+	removeoccurences1(l, 4);
+	l.printlist();
+
+	
+	cout << "\nList after delete all 5 elements is:" << endl;
+	removeoccurences2(l, 5);
+	l.printlist();
+
+	system("pause");
+	return 0;
+}
